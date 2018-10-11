@@ -7,7 +7,7 @@ way that you can use Docker to provide a customized login container for a user.
 
 As root:
 
-    install -m 755 login-container.sh /usr/bin
+    install -m 755 login-container.sh /usr/local/bin
 
 ## Create the Linux user
 
@@ -26,12 +26,12 @@ have a place to store data that should be kept even if the container is rebuilt.
 
     # create a workspace directory for user
     mkdir -p /home/$username/workspace
-    chown $username:$username workspace
+    chown $username:$username /home/$username/workspace
 
 If you have a file with the user's SSH public key, you can read it into a
 variable and then add it to the user's authorized_keys file as shown here:
 
-    ssh_public_key=$(cat /path/to/ssh_publick_key)
+    ssh_public_key=$(cat /path/to/ssh_public_key)
     echo 'command="sudo /usr/local/bin/login-container.sh $SSH_ORIGINAL_COMMAND",no-port-forwarding' $ssh_public_key >> /home/$username/.ssh/authorized_keys
 
 
@@ -45,4 +45,9 @@ As root:
 
     bash build-docker-image.sh <username>
 
-## 
+## Entering the login container
+
+As root, you can launch and enter the login container like any other container.
+As the user, just ssh to the host to enter the container. If the container is
+not already running, it will be started automatically.
+

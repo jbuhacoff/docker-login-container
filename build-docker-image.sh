@@ -17,7 +17,7 @@ cat template.Dockerfile | sed -e 's/$username/'$username'/' -e 's/$uid/'$uid'/' 
 (
     cd $tmpdir
     
-    docker build -f Dockerfile -t $username .
+    docker build $DOCKER_BUILD_OPTS -f Dockerfile -t $username .
     
     # NOTE: we don't need to upload this image to docker registry, we can just rebuild it on any node that needs a user container 
 )

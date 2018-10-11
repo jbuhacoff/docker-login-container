@@ -1,0 +1,3 @@
+# this file must be installed on the host at /etc/sudoers.d/$username
+Defaults:$username !requiretty
+$username ALL = (root) NOPASSWD: /usr/local/bin/login-container.sh

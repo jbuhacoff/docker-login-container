@@ -29,12 +29,19 @@ have a place to store data that should be kept even if the container is rebuilt.
     chown $username:$username /home/$username/workspace
 
 If you have a file with the user's SSH public key, you can read it into a
-variable and then add it to the user's authorized_keys file as shown here:
+variable and then add it to the user's authorized_keys file as shown here,
+replacing `<image-name>` and `<container-name>` with your own settings:
 
     ssh_public_key=$(cat /path/to/ssh_public_key)
-    echo 'command="sudo /usr/local/bin/login-container.sh $SSH_ORIGINAL_COMMAND",no-port-forwarding' $ssh_public_key >> /home/$username/.ssh/authorized_keys
+    echo 'command="sudo /usr/local/bin/login-container.sh --image <image-name> --name <container-name> -- $SSH_ORIGINAL_COMMAND",no-port-forwarding' $ssh_public_key >> /home/$username/.ssh/authorized_keys
 
+The `<image-name>` setting is used when the container is not already running 
+and needs to be automatically started on login. It will be created from the specified
+image.
 
+The `<container-name>` setting is used to find the container if it is already 
+running, or to set that name when starting it automatically.
+    
 ## Build the user image
 
 The `template.Dockerfile` provides minimal instructions for an Ubuntu login 

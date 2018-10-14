@@ -58,3 +58,8 @@ As root, you can launch and enter the login container like any other container.
 As the user, just ssh to the host to enter the container. If the container is
 not already running, it will be started automatically.
 
+A user may have more than one login container. When a user has multiple containers,
+one way to know which container to enter on login is to associate them with ssh
+public keys. In the `~/.ssh/authorized_keys` file, add one entry per container and
+set the image name, container name, and ssh public key differently on each entry.
+
